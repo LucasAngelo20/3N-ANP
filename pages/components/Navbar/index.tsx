@@ -13,7 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import Collapse from "@mui/material/Collapse";
 
@@ -23,8 +23,6 @@ import { ExpandLess } from "@mui/icons-material";
 import routes from "@/routes/pages.routes";
 import { makeStyles } from "@mui/styles";
 import { useRouter } from "next/router";
-
-
 
 const drawerWidth = 240;
 
@@ -79,27 +77,26 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const useStyles = makeStyles({
   paper: {
-    background: '#343A40',
-    color: 'white'
+    background: "#343A40",
+    color: "white",
+    overflow: "hidden",
   },
   paperHeader: {
-    background: '#fff',
-    color: '#343A40'
-  }
+    background: "#fff",
+    color: "#343A40",
+  },
 });
 
 export default function Navbar({ children }: any) {
   const [open, setOpen] = React.useState(false);
   const [openCollapse, setOpenCollapse] = React.useState(false);
 
-  const router = useRouter()
-
+  const router = useRouter();
 
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
 
- console.log(router)
   const styles = useStyles();
   return (
     <Box sx={{ display: "flex" }}>
@@ -115,13 +112,14 @@ export default function Navbar({ children }: any) {
               width: "100%",
             }}
           >
-            <div  style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-             
-            }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
               <IconButton
                 color="primary"
                 aria-label="open drawer"
@@ -139,7 +137,7 @@ export default function Navbar({ children }: any) {
               <IconButton
                 color="primary"
                 aria-label="open drawer"
-                onClick={() => console.log('Logout')}
+                onClick={() => console.log("Logout")}
                 edge="start"
                 sx={{ mr: 2 }}
               >
@@ -148,9 +146,19 @@ export default function Navbar({ children }: any) {
             </div>
           </div>
         </Toolbar>
-      <div>
-
-      </div>
+        <div
+          style={{
+            backgroundColor: "#6C757D",
+            height: 40,
+            display: "flex",
+            alignItems: "center",
+            padding: "10px",
+          }}
+        >
+          <Typography variant="body2" color="secondary">
+            {router.route}
+          </Typography>
+        </div>
       </AppBar>
       <Drawer
         sx={{
@@ -161,24 +169,35 @@ export default function Navbar({ children }: any) {
             boxSizing: "border-box",
           },
         }}
-        classes={{paper: styles.paper}}
+        classes={{ paper: styles.paper }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader sx={{
-          backgroundColor: '#fff',
-          color: '#343A40'
-        }} >
-         teste logo
+        <DrawerHeader
+          sx={{
+            backgroundColor: "#fff",
+            color: "#343A40",
+          }}
+        >
+          <Link href="/">teste logo</Link>
         </DrawerHeader>
+        <div style={{height: 50, display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <Typography variant="body2" color="secondary">
+            Lucas Gomes Angelo
+          </Typography>
+        </div>
+
         <Divider />
         <List>
           {routes.map((menuItem, index) => (
             <>
               {menuItem.collapsed ? (
                 <>
-                  <ListItem key={index} onClick={() => setOpenCollapse(!openCollapse)}>
+                  <ListItem
+                    key={index}
+                    onClick={() => setOpenCollapse(!openCollapse)}
+                  >
                     {menuItem.icon}
                     <ListItemText primary={menuItem.name} />
                     {openCollapse ? <ExpandLess /> : <ExpandMoreIcon />}
@@ -219,6 +238,7 @@ export default function Navbar({ children }: any) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        <div style={{ height: 30 }} />
         {children}
       </Main>
     </Box>

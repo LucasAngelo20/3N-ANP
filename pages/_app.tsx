@@ -7,17 +7,17 @@ import theme from "@/lib/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Head>
-        <title>Next.js Boilerplate</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=decide-width"
-        />
-      </Head>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <DefaultLayout>
+        <Head>
+          <title>Next.js Boilerplate</title>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=decide-width"
+          />
+        </Head>
         <Component {...pageProps} />
-      </ThemeProvider>
-    </>
+      </DefaultLayout>
+    </ThemeProvider>
   );
 }
