@@ -23,26 +23,26 @@ const theme = createTheme({
   typography: {
     fontSize: 16,
   },
- palette: {
-  primary: {
-    main: "#343A40",
-    light: "#6C757D"
+  palette: {
+    primary: {
+      main: "#343A40",
+      light: "#6C757D",
+    },
+    secondary: {
+      main: "#fff",
+    },
+    error: {
+      main: red.A400,
+    },
+    background: {
+      default: "#FFFFFF",
+    },
+    text: {
+      primary: "#000000",
+      secondary: "#000000",
+      disabled: "#000000",
+    },
   },
-  secondary: {
-    main: "#fff",
-  },
-  error: {
-    main: red.A400,
-  },
-  background: {
-    default: "#FFFFFF",
-  },
-  text: {
-    primary: "#000000",
-    secondary: "#000000",
-    disabled: "#000000",
-  },
- }
 });
 
 export default theme;

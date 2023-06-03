@@ -4,7 +4,7 @@ export type RouteItemProps = {
   name: string;
   to: string;
   icon?: React.ReactNode;
-}
+};
 
 export type RouteProps = {
   name: string;
@@ -12,16 +12,15 @@ export type RouteProps = {
   icon?: React.ReactNode;
   collapsed: boolean;
   collapse?: Array<RouteItemProps>;
-}
+};
 const routes = [
   {
-    name: "Home",
-    to: "/",
+    name: "Relatorio",
+    to: "/Relatario",
     icon: <MenuIcons iconNumber={1} />,
     collapsed: true,
     collapse: [
-      { name: "About", to: "/about", icon: <MenuIcons iconNumber={1} /> },
-      { name: "Contact", to: "/contact", icon: <MenuIcons iconNumber={1} /> },
+      { name: "Check-in", to: "/check-in", icon: <MenuIcons iconNumber={1} /> },
     ],
   },
   {
@@ -30,6 +29,6 @@ const routes = [
     icon: <MenuIcons iconNumber={1} />,
     collapsed: false,
   },
-] as Array<RouteProps>
+] as Array<RouteProps>;
 
-export default routes
+export default routes;

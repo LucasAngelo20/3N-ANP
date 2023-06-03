@@ -10,22 +10,21 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import Collapse from "@mui/material/Collapse";
 
-import MailIcon from "@mui/icons-material/Mail";
 import Link from "next/link";
-import routes from "@/Routes/pages.routes";
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+
 import { ExpandLess } from "@mui/icons-material";
+import routes from "@/routes/pages.routes";
+import { makeStyles } from "@mui/styles";
+import { useRouter } from "next/router";
+
+
 
 const drawerWidth = 240;
 
@@ -78,23 +77,34 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
+const useStyles = makeStyles({
+  paper: {
+    background: '#343A40',
+    color: 'white'
+  },
+  paperHeader: {
+    background: '#fff',
+    color: '#343A40'
+  }
+});
+
 export default function Navbar({ children }: any) {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [openCollapse, setOpenCollapse] = React.useState(false);
 
+  const router = useRouter()
+
+
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setOpen(!open);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
+ console.log(router)
+  const styles = useStyles();
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar color="secondary" position="fixed" open={open}>
         <Toolbar>
           <div
             style={{
@@ -113,11 +123,11 @@ export default function Navbar({ children }: any) {
              
             }}>
               <IconButton
-                color="inherit"
+                color="primary"
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
                 edge="start"
-                sx={{ mr: 2, ...(open && { display: "none" }) }}
+                sx={{ mr: 2 }}
               >
                 <MenuIcon />
               </IconButton>
@@ -127,7 +137,7 @@ export default function Navbar({ children }: any) {
             </div>
             <div>
               <IconButton
-                color="inherit"
+                color="primary"
                 aria-label="open drawer"
                 onClick={() => console.log('Logout')}
                 edge="start"
@@ -138,6 +148,9 @@ export default function Navbar({ children }: any) {
             </div>
           </div>
         </Toolbar>
+      <div>
+
+      </div>
       </AppBar>
       <Drawer
         sx={{
@@ -148,18 +161,16 @@ export default function Navbar({ children }: any) {
             boxSizing: "border-box",
           },
         }}
+        classes={{paper: styles.paper}}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
+        <DrawerHeader sx={{
+          backgroundColor: '#fff',
+          color: '#343A40'
+        }} >
+         teste logo
         </DrawerHeader>
         <Divider />
         <List>
@@ -167,7 +178,7 @@ export default function Navbar({ children }: any) {
             <>
               {menuItem.collapsed ? (
                 <>
-                  <ListItem onClick={() => setOpenCollapse(!openCollapse)}>
+                  <ListItem key={index} onClick={() => setOpenCollapse(!openCollapse)}>
                     {menuItem.icon}
                     <ListItemText primary={menuItem.name} />
                     {openCollapse ? <ExpandLess /> : <ExpandMoreIcon />}
@@ -176,7 +187,7 @@ export default function Navbar({ children }: any) {
                     {menuItem.collapse &&
                       menuItem?.collapse.map((item) => (
                         <Link
-                          style={{ textDecoration: "none", color: "#000" }}
+                          style={{ textDecoration: "none", color: "inherit" }}
                           key={index}
                           href={item.to}
                           passHref
@@ -191,7 +202,7 @@ export default function Navbar({ children }: any) {
                 </>
               ) : (
                 <Link
-                  style={{ textDecoration: "none", color: "#000" }}
+                  style={{ textDecoration: "none", color: "inherit" }}
                   key={index}
                   href={menuItem.to}
                   passHref
