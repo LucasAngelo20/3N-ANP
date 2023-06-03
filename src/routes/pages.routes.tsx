@@ -1,4 +1,4 @@
-import MenuIcons from "components/MenuIcons";
+import MenuIcons from "@/src/components/MenuIcons";
 
 export type RouteItemProps = {
   name: string;

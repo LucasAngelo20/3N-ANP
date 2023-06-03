@@ -20,7 +20,7 @@ import Collapse from "@mui/material/Collapse";
 import Link from "next/link";
 
 import { ExpandLess } from "@mui/icons-material";
-import routes from "@/routes/pages.routes";
+import routes from "@/src/routes/pages.routes";
 import { makeStyles } from "@mui/styles";
 import { useRouter } from "next/router";
 
@@ -169,7 +169,7 @@ export default function Navbar({ children }: any) {
             boxSizing: "border-box",
           },
         }}
-        classes={{ paper: styles.paper }}
+       
         variant="persistent"
         anchor="left"
         open={open}
@@ -182,7 +182,7 @@ export default function Navbar({ children }: any) {
         >
           <Link href="/">teste logo</Link>
         </DrawerHeader>
-        <div style={{height: 50, display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <div style={{height: 50, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: '#343A40'}}>
           <Typography variant="body2" color="secondary">
             Lucas Gomes Angelo
           </Typography>
@@ -199,21 +199,21 @@ export default function Navbar({ children }: any) {
                     onClick={() => setOpenCollapse(!openCollapse)}
                   >
                     {menuItem.icon}
-                    <ListItemText primary={menuItem.name} />
+                    <ListItemText key={index} primary={menuItem.name} />
                     {openCollapse ? <ExpandLess /> : <ExpandMoreIcon />}
                   </ListItem>
                   <Collapse in={openCollapse}>
                     {menuItem.collapse &&
-                      menuItem?.collapse.map((item) => (
+                      menuItem?.collapse.map((item, index2) => (
                         <Link
                           style={{ textDecoration: "none", color: "inherit" }}
-                          key={index}
+                          key={index2}
                           href={item.to}
                           passHref
                         >
-                          <ListItem style={{ marginLeft: 10 }}>
+                          <ListItem key={index2} style={{ marginLeft: 10 }}>
                             {item.icon}
-                            <ListItemText primary={item.name} />
+                            <ListItemText key={index2} primary={item.name} />
                           </ListItem>
                         </Link>
                       ))}
