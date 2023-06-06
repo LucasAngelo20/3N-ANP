@@ -1,50 +1,53 @@
 import { cpfmask } from "@/src/mists/cpfmask";
-import { TextField } from "@mui/material";
+import { TextField, colors } from "@mui/material";
 import { type } from "os";
+type DataProps = {
+  name: string
+}
 
-type CustomTextAreaProps = {
+type CustomSelectProps = {
   label: string;
   placeholder?: string;
   fullWidth?: boolean;
   width?: string
-  fieldType?: string
-  value?: string
-  type?: string
+  data?: Array<DataProps>
   onChange?: (value: any) => void;
 };
 
-const CustomTextArea = ({
+const CustomSelect = ({
   label,
   placeholder,
   fullWidth,
   width,
   onChange,
-  fieldType,
-  type,
-  value
-}: CustomTextAreaProps) => {
+  data,
+}: CustomSelectProps) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", margin: 10 }}>
       <span style={{ fontSize: 14, fontWeight: 300, marginBottom: 5 }}>{label}</span>
-      <input
+      <select
         style={{
           width: fullWidth ? "100%" : width ? width : '20%',
           height: 30,
           borderRadius: 5,
           outline: "none",
           border: "1px solid rgba(000,000,000,0.2)",
-          padding: "20px 10px",
           fontSize: 14,
-          fontWeight: 300
+          fontWeight: 300, 
+          color: 'rgba(000,000,000,0.6)'
         }}
         placeholder={placeholder}
-        value={value}
-        type={fieldType ? fieldType : "text"}
-        maxLength={type === 'CPF' ? 11 : 250}
+        name={label}
         onChange={onChange}
-      />
+      >
+        {data?.map(data => (
+          <>
+          <option value={data?.name}>{data?.name}</option>
+          </>
+        ))}
+      </select>
     </div>
   );
 };
 
-export default CustomTextArea;
+export default CustomSelect;

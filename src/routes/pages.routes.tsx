@@ -16,7 +16,7 @@ export type RouteProps = {
 const routes = [
   {
     name: "Cadastro pax",
-    to: "/CadastroPax",
+    to: "/cadastro-pax",
     icon: <MenuIcons iconNumber={1} />,
     collapsed: false,    
   },
