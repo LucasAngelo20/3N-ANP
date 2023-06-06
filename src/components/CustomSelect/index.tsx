@@ -11,6 +11,7 @@ type CustomSelectProps = {
   fullWidth?: boolean;
   width?: string
   data?: Array<DataProps>
+  value?: string
   onChange?: (value: any) => void;
 };
 
@@ -21,6 +22,7 @@ const CustomSelect = ({
   width,
   onChange,
   data,
+  value
 }: CustomSelectProps) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", margin: 10 }}>
@@ -28,7 +30,7 @@ const CustomSelect = ({
       <select
         style={{
           width: fullWidth ? "100%" : width ? width : '20%',
-          height: 30,
+          height: 40,
           borderRadius: 5,
           outline: "none",
           border: "1px solid rgba(000,000,000,0.2)",
@@ -38,6 +40,7 @@ const CustomSelect = ({
         }}
         placeholder={placeholder}
         name={label}
+        value={value}
         onChange={onChange}
       >
         {data?.map(data => (
