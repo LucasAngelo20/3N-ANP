@@ -15,13 +15,10 @@ export type RouteProps = {
 };
 const routes = [
   {
-    name: "Relatorio",
-    to: "/Relatario",
+    name: "Cadastro pax",
+    to: "/CadastroPax",
     icon: <MenuIcons iconNumber={1} />,
-    collapsed: true,
-    collapse: [
-      { name: "Check-in", to: "/check-in", icon: <MenuIcons iconNumber={1} /> },
-    ],
+    collapsed: false,    
   },
   {
     name: "About",
