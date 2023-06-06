@@ -23,6 +23,7 @@ import { ExpandLess } from "@mui/icons-material";
 import routes from "@/src/routes/pages.routes";
 import { makeStyles } from "@mui/styles";
 import { useRouter } from "next/router";
+import Footer from "../Footer";
 
 const drawerWidth = 240;
 
@@ -167,9 +168,10 @@ export default function Navbar({ children }: any) {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
+            background: "#343a3f",
+            color: "#fff",
           },
         }}
-       
         variant="persistent"
         anchor="left"
         open={open}
@@ -182,7 +184,15 @@ export default function Navbar({ children }: any) {
         >
           <Link href="/">teste logo</Link>
         </DrawerHeader>
-        <div style={{height: 50, display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: '#343A40'}}>
+        <div
+          style={{
+            height: 50,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#343A40",
+          }}
+        >
           <Typography variant="body2" color="secondary">
             Lucas Gomes Angelo
           </Typography>
@@ -198,7 +208,15 @@ export default function Navbar({ children }: any) {
                     key={index}
                     onClick={() => setOpenCollapse(!openCollapse)}
                   >
-                    {menuItem.icon}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginRight: 5,
+                      }}
+                    >
+                      {menuItem.icon}
+                    </div>
                     <ListItemText key={index} primary={menuItem.name} />
                     {openCollapse ? <ExpandLess /> : <ExpandMoreIcon />}
                   </ListItem>
@@ -212,7 +230,15 @@ export default function Navbar({ children }: any) {
                           passHref
                         >
                           <ListItem key={index2} style={{ marginLeft: 10 }}>
-                            {item.icon}
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginRight: 5,
+                              }}
+                            >
+                              {item.icon}
+                            </div>
                             <ListItemText key={index2} primary={item.name} />
                           </ListItem>
                         </Link>
@@ -227,7 +253,15 @@ export default function Navbar({ children }: any) {
                   passHref
                 >
                   <ListItem>
-                    {menuItem.icon}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginRight: 5,
+                      }}
+                    >
+                      {menuItem.icon}
+                    </div>
                     <ListItemText primary={menuItem.name} />
                   </ListItem>
                 </Link>
@@ -238,7 +272,7 @@ export default function Navbar({ children }: any) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <div style={{ height: 30 }} />
+        <div style={{ height: 40 }} />
         {children}
       </Main>
     </Box>

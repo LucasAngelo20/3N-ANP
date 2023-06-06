@@ -1,4 +1,5 @@
+import CheckIn from "@/src/screens/Relatórios/Check-in";
 
-export default function CheckIn() {
-  return <div>Check-in</div>;
+export default function CheckInPage() {
+  return <CheckIn />;
 }

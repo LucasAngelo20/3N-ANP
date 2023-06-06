@@ -1,6 +1,6 @@
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import InfoIcon from "@mui/icons-material/Info";
+import MailIcon from "@mui/icons-material/Mail";
+import SpeedIcon from '@mui/icons-material/Speed';
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 
 type MenuIconsProps = {
@@ -10,7 +10,7 @@ type MenuIconsProps = {
 const icons = (number: any) => {
   switch (number) {
     case 1:
-      return <InboxIcon />;
+      return <SpeedIcon />;
     case 2:
       return <InfoIcon />;
     case 3:
