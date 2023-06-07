@@ -1,9 +1,11 @@
-import { useTheme } from "@mui/material";
+import { BottomNavigation, useTheme } from "@mui/material";
 
 const Footer = () => {
   const theme = useTheme();
   return (
-    <div
+    <>
+      <BottomNavigation sx={{ width: 500 }}>teste</BottomNavigation>
+      {/* <div
       style={{
         display: "flex",
         alignItems: "center",
@@ -28,7 +30,9 @@ const Footer = () => {
           Version <span style={{fontWeight: 400}}>1.0.0</span>
         </p>
       </div>
-    </div>
+
+    </div> */}
+    </>
   );
 };
 

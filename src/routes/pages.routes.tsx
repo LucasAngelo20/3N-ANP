@@ -33,8 +33,8 @@ const routes = [
     ],
   },
   {
-    name: "About",
-    to: "/about",
+    name: "Emissão RT",
+    to: "/emissao-rt",
     icon: <MenuIcons iconNumber={1} />,
     collapsed: false,
   },
