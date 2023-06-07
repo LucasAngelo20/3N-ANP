@@ -1,8 +1,9 @@
 import CustomButton from "@/src/components/CustomButton";
 import CustomSelect from "@/src/components/CustomSelect";
 import CustomTextArea from "@/src/components/CustomTextArea";
+import useSnackbar from "@/src/hooks/useSnackbar";
 import { cpfmask } from "@/src/mists/cpfmask";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Snackbar } from "@mui/material";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 
@@ -25,12 +26,13 @@ const EmissaoRt = () => {
   const [dataInicio, setDataInicio] = useState();
   const [dataTermino, setDataTermino] = useState();
   const [prazo, setPrazo] = useState(0);
+  const [open, setOpen] = useState(false);
   const [contadorEmissao, setContadorEmissao] = useState<Array<SessionProps>>(
     []
   );
-  const [ Info, setInfo] = useState<Array<SessionProps>>(
-    []
-  );
+  const [Info, setInfo] = useState<Array<SessionProps>>([]);
+
+  const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
     setPrazo(moment(dataTermino).diff(dataInicio, "days"));
@@ -52,6 +54,7 @@ const EmissaoRt = () => {
         empresa: empresa,
       },
     ]);
+   setOpen(true);
   };
 
   const handleAddEmissao = () => {
@@ -72,12 +75,10 @@ const EmissaoRt = () => {
     console.log("Adicionado", contadorEmissao);
   };
   const handleRemoveEmissao = () => {
-    if(contadorEmissao.length === 1){
-      setContadorEmissao([])
-
-    }else if (contadorEmissao.length > 0){
-
-      setContadorEmissao(prev => prev.slice(-1));
+    if (contadorEmissao.length === 1) {
+      setContadorEmissao([]);
+    } else if (contadorEmissao.length > 0) {
+      setContadorEmissao((prev) => prev.slice(-1));
     }
     console.log("Adicionado", contadorEmissao);
   };
@@ -257,16 +258,17 @@ const EmissaoRt = () => {
       ))}
 
       <Grid container>
-        <Grid xs={4} minWidth="100%" display="flex">
-          <CustomButton text="Salvar" onClick={() => handleSaveInfos()} />
+        <Grid xs={2}>
+          <CustomButton text="Adicionar" onClick={() => handleAddEmissao()} />
         </Grid>
-        <Grid xs={4} minWidth="100%" display="flex">
-          <CustomButton text="Add" onClick={() => handleAddEmissao()} />
-        </Grid>
-        <Grid xs={4} minWidth="100%" display="flex">
-          <CustomButton text="Remove" onClick={() => handleRemoveEmissao()} />
+        <Grid xs={2}>
+          <CustomButton text="Remover" onClick={() => handleRemoveEmissao()} />
         </Grid>
       </Grid>
+        <Grid xs={6}>
+          <CustomButton text="Salvar" onClick={() => handleSaveInfos()} />
+        </Grid>
+      <Snackbar open={open} onClose={() => setOpen(false)} message="Salvo com sucesso!" autoHideDuration={3000}/>
     </>
   );
 };
