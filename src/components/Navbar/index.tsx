@@ -24,6 +24,7 @@ import routes from "@/src/routes/pages.routes";
 import { makeStyles } from "@mui/styles";
 import { useRouter } from "next/router";
 import Footer from "../Footer";
+import Image from "next/image";
 
 const drawerWidth = 240;
 
@@ -91,12 +92,22 @@ const useStyles = makeStyles({
 export default function Navbar({ children }: any) {
   const [open, setOpen] = React.useState(false);
   const [openCollapse, setOpenCollapse] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(1000)
+
 
   const router = useRouter();
 
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
+
+  const handleOpenCollapse = (index: any) => {
+    if (selectedIndex === index) {
+      setSelectedIndex(1000)
+    } else {
+      setSelectedIndex(index)
+    }
+  }
 
   const styles = useStyles();
   return (
@@ -180,9 +191,11 @@ export default function Navbar({ children }: any) {
           sx={{
             backgroundColor: "#fff",
             color: "#343A40",
+            display:'flex',
+            justifyContent: 'center '
           }}
         >
-          <Link href="/">teste logo</Link>
+          <Link href="/"><Image src={require('../../../assets/image/stratagislogo.png')} width={200} alt="Logo" /></Link>
         </DrawerHeader>
         <div
           style={{
@@ -206,7 +219,7 @@ export default function Navbar({ children }: any) {
                 <>
                   <ListItem
                     key={index}
-                    onClick={() => setOpenCollapse(!openCollapse)}
+                    onClick={() => handleOpenCollapse(index)}
                   >
                     <div
                       style={{
@@ -218,9 +231,9 @@ export default function Navbar({ children }: any) {
                       {menuItem.icon}
                     </div>
                     <ListItemText key={index} primary={menuItem.name} />
-                    {openCollapse ? <ExpandLess /> : <ExpandMoreIcon />}
+                    {index === selectedIndex ? <ExpandLess /> : <ExpandMoreIcon />}
                   </ListItem>
-                  <Collapse in={openCollapse}>
+                  <Collapse in={index === selectedIndex} key={index}>
                     {menuItem.collapse &&
                       menuItem?.collapse.map((item, index2) => (
                         <Link

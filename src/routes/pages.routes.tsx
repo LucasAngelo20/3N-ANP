@@ -33,10 +33,22 @@ const routes = [
     ],
   },
   {
-    name: "Emissão RT",
-    to: "/emissao-rt",
+    name: "Emissão R1 Pax",
+    to: "/emissao-r1-pax",
     icon: <MenuIcons iconNumber={1} />,
-    collapsed: false,
+    collapsed: true,
+    collapse: [
+      {
+        name: "Empresa",
+        to: "emissao-r1-pax",
+        icon: <MenuIcons iconNumber={1} />,
+      },
+      {
+        name: "Terceirizada",
+        to: "emissao-r1-pax-terceirizada",
+        icon: <MenuIcons iconNumber={1} />,
+      },
+    ],
   },
 ] as Array<RouteProps>;
 

@@ -7,7 +7,7 @@ import { Box, Grid, Snackbar } from "@mui/material";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 
-const data = [
+const dataEmpresas = [
   { name: "cadastro1" },
   { name: "cadastro2" },
   { name: "cadastro3" },
@@ -17,15 +17,15 @@ type SessionProps = {
   empresa: string;
 };
 
-const EmissaoRt = () => {
-  const [empresa, setEmpresa] = useState(data[0].name);
+const EmissaoR1PaxTerceirizada = () => {
+  const [empresa, setEmpresa] = useState(dataEmpresas[0].name);
   const [cpf, setCpf] = useState("");
   const [nome, setNome] = useState("");
   const [contrato, setContrato] = useState("");
   const [funcao, setFuncao] = useState("");
-  const [dataInicio, setDataInicio] = useState();
-  const [dataTermino, setDataTermino] = useState();
-  const [prazo, setPrazo] = useState(0);
+  const [data, setData] = useState();
+  const [destino, setDestino] = useState("");
+  const [centroDeCusto, setCentroDeCusto] = useState("");
   const [open, setOpen] = useState(false);
   const [contadorEmissao, setContadorEmissao] = useState<Array<SessionProps>>(
     []
@@ -34,10 +34,6 @@ const EmissaoRt = () => {
 
   const { showSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    setPrazo(moment(dataTermino).diff(dataInicio, "days"));
-  }, [dataInicio, dataTermino]);
-
   const handleSaveInfos = () => {
     console.log("Informações salvas: ");
     console.log(empresa);
@@ -45,16 +41,14 @@ const EmissaoRt = () => {
     console.log(funcao);
     console.log(contrato);
     console.log(cpf);
-    console.log(dataInicio);
-    console.log(dataTermino);
-    console.log(moment(dataInicio).diff(dataTermino, "days"));
+    console.log(data);
     setInfo([
       ...contadorEmissao,
       {
         empresa: empresa,
       },
     ]);
-   setOpen(true);
+    setOpen(true);
   };
 
   const handleAddEmissao = () => {
@@ -90,7 +84,7 @@ const EmissaoRt = () => {
             <CustomSelect
               width="44%"
               label="Empresa:"
-              data={data}
+              data={dataEmpresas}
               value={empresa}
               onChange={(e) => setEmpresa(e.target.value)}
             />
@@ -137,30 +131,38 @@ const EmissaoRt = () => {
           <Grid xs={3}>
             <CustomTextArea
               width="90%"
-              label="Início:"
-              placeholder="00/00/0000"
-              value={dataInicio}
-              fieldType="date"
-              onChange={(e) => setDataInicio(e.target.value)}
+              label="Origem:"
+              placeholder="00000"
+              value={funcao}
+              onChange={(e) => setFuncao(e.target.value)}
             />
           </Grid>
           <Grid xs={3}>
             <CustomTextArea
               width="90%"
-              label="Termino:"
-              placeholder="00/00/0000"
-              value={dataTermino}
-              onChange={(e) => setDataTermino(e.target.value)}
-              fieldType="date"
+              label="Destino:"
+              placeholder="00000"
+              value={destino}
+              onChange={(e) => setDestino(e.target.value)}
             />
           </Grid>
           <Grid xs={3}>
             <CustomTextArea
               width="90%"
-              label="Prazo contratual:"
-              placeholder="20 DIAS"
-              value={`${prazo} dias`}
-              onChange={(e) => setPrazo(e.target.value)}
+              label="Data:"
+              placeholder="00/00/0000"
+              value={data}
+              fieldType="date"
+              onChange={(e) => setData(e.target.value)}
+            />
+          </Grid>
+          <Grid xs={3}>
+            <CustomTextArea
+              width="90%"
+              label="Centro de Custo:"
+              placeholder=""
+              value={centroDeCusto}
+              onChange={(e) => setCentroDeCusto(e.target.value)}
             />
           </Grid>
         </Grid>
@@ -179,7 +181,7 @@ const EmissaoRt = () => {
                 <CustomSelect
                   width="44%"
                   label="Empresa:"
-                  data={data}
+                  data={dataEmpresas}
                   value={empresa}
                   onChange={(e) => setEmpresa(e.target.value)}
                 />
@@ -226,30 +228,38 @@ const EmissaoRt = () => {
               <Grid xs={3}>
                 <CustomTextArea
                   width="90%"
-                  label="Início:"
-                  placeholder="00/00/0000"
-                  value={dataInicio}
-                  fieldType="date"
-                  onChange={(e) => setDataInicio(e.target.value)}
+                  label="Origem:"
+                  placeholder="00000"
+                  value={funcao}
+                  onChange={(e) => setFuncao(e.target.value)}
                 />
               </Grid>
               <Grid xs={3}>
                 <CustomTextArea
                   width="90%"
-                  label="Termino:"
-                  placeholder="00/00/0000"
-                  value={dataTermino}
-                  onChange={(e) => setDataTermino(e.target.value)}
-                  fieldType="date"
+                  label="Destino:"
+                  placeholder="00000"
+                  value={destino}
+                  onChange={(e) => setDestino(e.target.value)}
                 />
               </Grid>
               <Grid xs={3}>
                 <CustomTextArea
                   width="90%"
-                  label="Prazo contratual:"
-                  placeholder="20 DIAS"
-                  value={`${prazo} dias`}
-                  onChange={(e) => setPrazo(e.target.value)}
+                  label="Data:"
+                  placeholder="00/00/0000"
+                  value={data}
+                  fieldType="date"
+                  onChange={(e) => setData(e.target.value)}
+                />
+              </Grid>
+              <Grid xs={3}>
+                <CustomTextArea
+                  width="90%"
+                  label="Centro de Custo:"
+                  placeholder=""
+                  value={centroDeCusto}
+                  onChange={(e) => setCentroDeCusto(e.target.value)}
                 />
               </Grid>
             </Grid>
@@ -265,12 +275,17 @@ const EmissaoRt = () => {
           <CustomButton text="Remover" onClick={() => handleRemoveEmissao()} />
         </Grid>
       </Grid>
-        <Grid xs={6}>
-          <CustomButton text="Salvar" onClick={() => handleSaveInfos()} />
-        </Grid>
-      <Snackbar open={open} onClose={() => setOpen(false)} message="Salvo com sucesso!" autoHideDuration={3000}/>
+      <Grid xs={6}>
+        <CustomButton text="Salvar" onClick={() => handleSaveInfos()} />
+      </Grid>
+      <Snackbar
+        open={open}
+        onClose={() => setOpen(false)}
+        message="Salvo com sucesso!"
+        autoHideDuration={3000}
+      />
     </>
   );
 };
 
-export default EmissaoRt;
+export default EmissaoR1PaxTerceirizada;
