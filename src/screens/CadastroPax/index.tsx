@@ -43,7 +43,7 @@ const CadastroPax = () => {
           <CustomTextArea
             width="90%"
             label="Nome:"
-            placeholder="Nome Completo"
+            placeholder="Nome completo"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
           />
@@ -70,7 +70,7 @@ const CadastroPax = () => {
       </Grid>
       <Grid container>
         <Grid xs={6} minWidth="100%" display="flex">
-          <CustomButton text="Enviar" onClick={() => handleSaveInfos()} />
+          <CustomButton text="Salvar" onClick={() => handleSaveInfos()} />
         </Grid>
       </Grid>
     </Box>

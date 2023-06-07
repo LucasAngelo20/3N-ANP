@@ -8,7 +8,7 @@ type CustomTextAreaProps = {
   fullWidth?: boolean;
   width?: string
   fieldType?: string
-  value?: string
+  value?: any
   type?: string
   onChange?: (value: any) => void;
 };

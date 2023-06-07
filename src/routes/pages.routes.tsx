@@ -18,7 +18,19 @@ const routes = [
     name: "Cadastro pax",
     to: "/cadastro-pax",
     icon: <MenuIcons iconNumber={1} />,
-    collapsed: false,    
+    collapsed: true,
+    collapse: [
+      {
+        name: "Empresa",
+        to: "cadastro-pax",
+        icon: <MenuIcons iconNumber={1} />,
+      },
+      {
+        name: "Terceirizada",
+        to: "cadastro-pax-terceirizada",
+        icon: <MenuIcons iconNumber={1} />,
+      },
+    ],
   },
   {
     name: "About",
