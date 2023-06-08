@@ -50,6 +50,24 @@ const routes = [
       },
     ],
   },
+  {
+    name: "Emissão R2",
+    to: "/emissao-r2",
+    icon: <MenuIcons iconNumber={1} />,
+    collapsed: true,
+    collapse: [
+      {
+        name: "Carga seca",
+        to: "emissao-r2-carga-seca",
+        icon: <MenuIcons iconNumber={1} />,
+      },
+      {
+        name: "Carga liquida",
+        to: "emissao-r2-carga-liquida",
+        icon: <MenuIcons iconNumber={1} />,
+      },
+    ],
+  },
 ] as Array<RouteProps>;
 
 export default routes;

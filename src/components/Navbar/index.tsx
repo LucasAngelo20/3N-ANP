@@ -20,11 +20,12 @@ import Collapse from "@mui/material/Collapse";
 import Link from "next/link";
 
 import { ExpandLess } from "@mui/icons-material";
-import routes from "@/src/routes/pages.routes";
+import routes, { RouteProps } from "@/src/routes/pages.routes";
 import { makeStyles } from "@mui/styles";
 import { useRouter } from "next/router";
 import Footer from "../Footer";
 import Image from "next/image";
+import CustomInputSearch from "../CustomInputSearch";
 
 const drawerWidth = 240;
 
@@ -91,9 +92,17 @@ const useStyles = makeStyles({
 
 export default function Navbar({ children }: any) {
   const [open, setOpen] = React.useState(false);
-  const [openCollapse, setOpenCollapse] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(1000)
+  const [selectedIndex, setSelectedIndex] = React.useState(1000);
+  const [search, setSearch] = React.useState("");
+  const [filteredRoutes, setFilteredRoutes] = React.useState<Array<RouteProps>>([]);
 
+  React.useEffect(() => {
+    const filteredRoutes = routes.filter((route) =>
+      route.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilteredRoutes(filteredRoutes)
+    console.log(filteredRoutes);
+  }, [search]);
 
   const router = useRouter();
 
@@ -103,13 +112,12 @@ export default function Navbar({ children }: any) {
 
   const handleOpenCollapse = (index: any) => {
     if (selectedIndex === index) {
-      setSelectedIndex(1000)
+      setSelectedIndex(1000);
     } else {
-      setSelectedIndex(index)
+      setSelectedIndex(index);
     }
-  }
+  };
 
-  const styles = useStyles();
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -181,6 +189,7 @@ export default function Navbar({ children }: any) {
             boxSizing: "border-box",
             background: "#343a3f",
             color: "#fff",
+            overflow: "hidden",
           },
         }}
         variant="persistent"
@@ -191,11 +200,17 @@ export default function Navbar({ children }: any) {
           sx={{
             backgroundColor: "#fff",
             color: "#343A40",
-            display:'flex',
-            justifyContent: 'center '
+            display: "flex",
+            justifyContent: "center ",
           }}
         >
-          <Link href="/"><Image src={require('../../../assets/image/stratagislogo.png')} width={200} alt="Logo" /></Link>
+          <Link href="/">
+            <Image
+              src={require("../../../assets/image/stratagislogo.png")}
+              width={200}
+              alt="Logo"
+            />
+          </Link>
         </DrawerHeader>
         <div
           style={{
@@ -212,8 +227,20 @@ export default function Navbar({ children }: any) {
         </div>
 
         <Divider />
+
+        <div
+          style={{
+            height: 50,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#343A40",
+          }}
+        >
+          <CustomInputSearch fullWidth placeholder="Search" onChange={(e)=> setSearch(e.target.value)}/>
+        </div>
         <List>
-          {routes.map((menuItem, index) => (
+          {filteredRoutes.map((menuItem, index) => (
             <>
               {menuItem.collapsed ? (
                 <>
@@ -231,7 +258,11 @@ export default function Navbar({ children }: any) {
                       {menuItem.icon}
                     </div>
                     <ListItemText key={index} primary={menuItem.name} />
-                    {index === selectedIndex ? <ExpandLess /> : <ExpandMoreIcon />}
+                    {index === selectedIndex ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
                   </ListItem>
                   <Collapse in={index === selectedIndex} key={index}>
                     {menuItem.collapse &&
