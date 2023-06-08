@@ -314,9 +314,9 @@ export default function Navbar({ children }: any) {
           ))}
         </List>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        <div style={{ height: 40 }} />
+      <Main sx={{backgroundColor: '#f4f6f9'}} open={open}>
+        <DrawerHeader style={{height: '5vh'}} />
+        <div style={{ height: '5vh' }} />
         {children}
       </Main>
     </Box>

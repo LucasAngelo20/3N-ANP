@@ -1,9 +1,10 @@
 type CustomButtonProps = {
   text: string;
+  display?: boolean;
   onClick?: () => void;
 };
 
-const CustomButton = ({ text, onClick }: CustomButtonProps) => {
+const CustomButton = ({ text, onClick, display }: CustomButtonProps) => {
   return (
     <button
       style={{
@@ -13,6 +14,7 @@ const CustomButton = ({ text, onClick }: CustomButtonProps) => {
         borderRadius: 5,
         backgroundColor: "#6C757D",
         color: "#fff",
+        display: display ? 'none' : 'flex'
       }}
       onClick={onClick}
     >

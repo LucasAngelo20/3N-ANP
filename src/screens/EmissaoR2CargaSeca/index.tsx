@@ -4,7 +4,7 @@ import CustomTextArea from "@/src/components/CustomTextArea";
 import useSnackbar from "@/src/hooks/useSnackbar";
 import { cpfmask } from "@/src/mists/cpfmask";
 import { Box, Grid, Snackbar } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const dataEmpresas = [
   { name: "cadastro1" },
@@ -18,29 +18,28 @@ type SessionProps = {
 
 const EmissaoR2CargaSeca = () => {
   const [empresa, setEmpresa] = useState(dataEmpresas[0].name);
-  const [cpf, setCpf] = useState("");
-  const [nome, setNome] = useState("");
-  const [contrato, setContrato] = useState("");
-  const [funcao, setFuncao] = useState("");
-  const [data, setData] = useState();
+  const [dataCedo, setDataCedo] = useState();
+  const [dataTarde, setDataTarde] = useState();
   const [destino, setDestino] = useState("");
+  const [descricaoDaCarga, setDescricaoDaCarga] = useState("");
+  const [comprimento, setComprimento] = useState("");
+  const [largura, setLargura] = useState("");
+  const [altura, setAltura] = useState("");
+  const [peso, setPeso] = useState("");
+  const [valor, setValor] = useState("");
+  const [NDocumetoFiscal, setNDocumentoFiscal] = useState("");
   const [centroDeCusto, setCentroDeCusto] = useState("");
+  const [origem, setOrigem] = useState("");
   const [open, setOpen] = useState(false);
   const [contadorEmissao, setContadorEmissao] = useState<Array<SessionProps>>(
     []
   );
-  const [Info, setInfo] = useState<Array<SessionProps>>([]);
+  const ref = useRef(null);
 
-  const { showSnackbar } = useSnackbar();
+  const [Info, setInfo] = useState<Array<SessionProps>>([]);
 
   const handleSaveInfos = () => {
     console.log("Informações salvas: ");
-    console.log(empresa);
-    console.log(nome);
-    console.log(funcao);
-    console.log(contrato);
-    console.log(cpf);
-    console.log(data);
     setInfo([
       ...contadorEmissao,
       {
@@ -65,97 +64,129 @@ const EmissaoR2CargaSeca = () => {
         },
       ]);
     }
+
     console.log("Adicionado", contadorEmissao);
+
+    ref.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   const handleRemoveEmissao = () => {
     if (contadorEmissao.length === 1) {
       setContadorEmissao([]);
-    } else if (contadorEmissao.length > 0) {
-      setContadorEmissao((prev) => prev.slice(-1));
+    } else if (contadorEmissao.length > 1) {
+      setContadorEmissao(contadorEmissao.slice(0, -1));
     }
     console.log("Adicionado", contadorEmissao);
+    ref.current?.scrollIntoView({ behavior: "smooth" });
   };
   return (
     <>
       <Box>
         <Grid container>
           <Grid xs={6}>
-            <CustomSelect
-              width="44%"
-              label="Empresa:"
-              data={dataEmpresas}
-              value={empresa}
-              onChange={(e) => setEmpresa(e.target.value)}
-            />
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid xs={3}>
             <CustomTextArea
               width="90%"
-              label="Nome:"
-              placeholder="Nome completo"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              label="Descrição da carga:"
+              placeholder=""
+              value={descricaoDaCarga}
+              onChange={(e) => setDescricaoDaCarga(e.target.value)}
             />
           </Grid>
-          <Grid xs={3}>
+          <Grid xs={1}>
             <CustomTextArea
               width="90%"
-              label="CPF:"
-              placeholder="000.000.000-00"
-              value={cpfmask(cpf)}
+              label="Comprimento:"
+              placeholder="35 M"
+              value={comprimento}
               type="CPF"
-              onChange={(e) => setCpf(e.target.value)}
+              onChange={(e) => setComprimento(e.target.value)}
             />
           </Grid>
-          <Grid xs={3}>
+          <Grid xs={1}>
             <CustomTextArea
               width="90%"
-              label="Numero do contrato:"
-              placeholder="00000"
-              value={contrato}
-              onChange={(e) => setContrato(e.target.value)}
+              label="Largura:"
+              placeholder="35 M"
+              value={largura}
+              onChange={(e) => setLargura(e.target.value)}
             />
           </Grid>
-          <Grid xs={3}>
+          <Grid xs={1}>
             <CustomTextArea
               width="90%"
-              label="Função:"
-              placeholder="00000"
-              value={funcao}
-              onChange={(e) => setFuncao(e.target.value)}
+              label="Altura:"
+              placeholder="35 M"
+              value={altura}
+              onChange={(e) => setAltura(e.target.value)}
             />
           </Grid>
-          <Grid xs={3}>
+          <Grid xs={1}>
+            <CustomTextArea
+              width="90%"
+              label="Peso:"
+              placeholder="35 M"
+              value={peso}
+              onChange={(e) => setPeso(e.target.value)}
+            />
+          </Grid>
+          <Grid xs={1.5}>
+            <CustomTextArea
+              width="100%"
+              label="Valor:"
+              placeholder="R$ 0.000,00"
+              value={valor}
+              fieldType="text"
+              onChange={(e) => setValor(e.target.value)}
+            />
+          </Grid>
+          <Grid xs={2.5}>
+            <CustomTextArea
+              width="90%"
+              label="N Documento Fiscal:"
+              placeholder=""
+              value={NDocumetoFiscal}
+              onChange={(e) => setNDocumentoFiscal(e.target.value)}
+            />
+          </Grid>
+          <Grid xs={1.5}>
+            <CustomTextArea
+              width="90%"
+              label="Data mais cedo:"
+              placeholder=""
+              value={dataCedo}
+              onChange={(e) => setDataCedo(e.target.value)}
+              fieldType="date"
+            />
+          </Grid>
+          <Grid xs={1.5}>
+            <CustomTextArea
+              width="90%"
+              label="Data mais tarde:"
+              placeholder=""
+              value={dataTarde}
+              onChange={(e) => setDataTarde(e.target.value)}
+              fieldType="date"
+            />
+          </Grid>
+          <Grid xs={2}>
             <CustomTextArea
               width="90%"
               label="Origem:"
-              placeholder="00000"
-              value={funcao}
-              onChange={(e) => setFuncao(e.target.value)}
+              placeholder=""
+              value={origem}
+              onChange={(e) => setOrigem(e.target.value)}
             />
           </Grid>
-          <Grid xs={3}>
+          <Grid xs={2}>
             <CustomTextArea
               width="90%"
               label="Destino:"
-              placeholder="00000"
+              placeholder=""
               value={destino}
               onChange={(e) => setDestino(e.target.value)}
             />
           </Grid>
-          <Grid xs={3}>
-            <CustomTextArea
-              width="90%"
-              label="Data:"
-              placeholder="00/00/0000"
-              value={data}
-              fieldType="date"
-              onChange={(e) => setData(e.target.value)}
-            />
-          </Grid>
-          <Grid xs={3}>
+          <Grid xs={2.5}>
             <CustomTextArea
               width="90%"
               label="Centro de Custo:"
@@ -177,82 +208,109 @@ const EmissaoR2CargaSeca = () => {
           <Box>
             <Grid container>
               <Grid xs={6}>
-                <CustomSelect
-                  width="44%"
-                  label="Empresa:"
-                  data={dataEmpresas}
-                  value={empresa}
-                  onChange={(e) => setEmpresa(e.target.value)}
-                />
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid xs={3}>
                 <CustomTextArea
                   width="90%"
-                  label="Nome:"
-                  placeholder="Nome completo"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
+                  label="Descrição da carga:"
+                  placeholder=""
+                  value={descricaoDaCarga}
+                  onChange={(e) => setDescricaoDaCarga(e.target.value)}
                 />
               </Grid>
-              <Grid xs={3}>
+              <Grid xs={1}>
                 <CustomTextArea
                   width="90%"
-                  label="CPF:"
-                  placeholder="000.000.000-00"
-                  value={cpfmask(cpf)}
+                  label="Comprimento:"
+                  placeholder="35 M"
+                  value={comprimento}
                   type="CPF"
-                  onChange={(e) => setCpf(e.target.value)}
+                  onChange={(e) => setComprimento(e.target.value)}
                 />
               </Grid>
-              <Grid xs={3}>
+              <Grid xs={1}>
                 <CustomTextArea
                   width="90%"
-                  label="Numero do contrato:"
-                  placeholder="00000"
-                  value={contrato}
-                  onChange={(e) => setContrato(e.target.value)}
+                  label="Largura:"
+                  placeholder="35 M"
+                  value={largura}
+                  onChange={(e) => setLargura(e.target.value)}
                 />
               </Grid>
-              <Grid xs={3}>
+              <Grid xs={1}>
                 <CustomTextArea
                   width="90%"
-                  label="Função:"
-                  placeholder="00000"
-                  value={funcao}
-                  onChange={(e) => setFuncao(e.target.value)}
+                  label="Altura:"
+                  placeholder="35 M"
+                  value={altura}
+                  onChange={(e) => setAltura(e.target.value)}
                 />
               </Grid>
-              <Grid xs={3}>
+              <Grid xs={1}>
+                <CustomTextArea
+                  width="90%"
+                  label="Peso:"
+                  placeholder="35 M"
+                  value={peso}
+                  onChange={(e) => setPeso(e.target.value)}
+                />
+              </Grid>
+              <Grid xs={1.5}>
+                <CustomTextArea
+                  width="100%"
+                  label="Valor:"
+                  placeholder="R$ 0.000,00"
+                  value={valor}
+                  fieldType="text"
+                  onChange={(e) => setValor(e.target.value)}
+                />
+              </Grid>
+              <Grid xs={2.5}>
+                <CustomTextArea
+                  width="90%"
+                  label="N Documento Fiscal:"
+                  placeholder=""
+                  value={NDocumetoFiscal}
+                  onChange={(e) => setNDocumentoFiscal(e.target.value)}
+                />
+              </Grid>
+              <Grid xs={1.5}>
+                <CustomTextArea
+                  width="90%"
+                  label="Data mais cedo:"
+                  placeholder=""
+                  value={dataCedo}
+                  onChange={(e) => setDataCedo(e.target.value)}
+                  fieldType="date"
+                />
+              </Grid>
+              <Grid xs={1.5}>
+                <CustomTextArea
+                  width="90%"
+                  label="Data mais tarde:"
+                  placeholder=""
+                  value={dataTarde}
+                  onChange={(e) => setDataTarde(e.target.value)}
+                  fieldType="date"
+                />
+              </Grid>
+              <Grid xs={2}>
                 <CustomTextArea
                   width="90%"
                   label="Origem:"
-                  placeholder="00000"
-                  value={funcao}
-                  onChange={(e) => setFuncao(e.target.value)}
+                  placeholder=""
+                  value={origem}
+                  onChange={(e) => setOrigem(e.target.value)}
                 />
               </Grid>
-              <Grid xs={3}>
+              <Grid xs={2}>
                 <CustomTextArea
                   width="90%"
                   label="Destino:"
-                  placeholder="00000"
+                  placeholder=""
                   value={destino}
                   onChange={(e) => setDestino(e.target.value)}
                 />
               </Grid>
-              <Grid xs={3}>
-                <CustomTextArea
-                  width="90%"
-                  label="Data:"
-                  placeholder="00/00/0000"
-                  value={data}
-                  fieldType="date"
-                  onChange={(e) => setData(e.target.value)}
-                />
-              </Grid>
-              <Grid xs={3}>
+              <Grid xs={2.5}>
                 <CustomTextArea
                   width="90%"
                   label="Centro de Custo:"
@@ -266,16 +324,16 @@ const EmissaoR2CargaSeca = () => {
         </>
       ))}
 
-      <Grid container>
+      <Grid container >
         <Grid xs={2}>
           <CustomButton text="Adicionar" onClick={() => handleAddEmissao()} />
         </Grid>
         <Grid xs={2}>
-          <CustomButton text="Remover" onClick={() => handleRemoveEmissao()} />
+          <CustomButton display={contadorEmissao.length == 0} text="Remover" onClick={() => handleRemoveEmissao()} />
         </Grid>
       </Grid>
-      <Grid xs={6}>
-        <CustomButton text="Salvar" onClick={() => handleSaveInfos()} />
+      <Grid ref={ref} xs={6}>
+        <CustomButton  text="Salvar" onClick={() => handleSaveInfos()} />
       </Grid>
       <Snackbar
         open={open}

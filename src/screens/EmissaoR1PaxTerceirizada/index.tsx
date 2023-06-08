@@ -71,8 +71,8 @@ const EmissaoR1PaxTerceirizada = () => {
   const handleRemoveEmissao = () => {
     if (contadorEmissao.length === 1) {
       setContadorEmissao([]);
-    } else if (contadorEmissao.length > 0) {
-      setContadorEmissao((prev) => prev.slice(-1));
+    } else if (contadorEmissao.length > 1) {
+      setContadorEmissao(contadorEmissao.slice(0, -1));
     }
     console.log("Adicionado", contadorEmissao);
   };
@@ -272,7 +272,7 @@ const EmissaoR1PaxTerceirizada = () => {
           <CustomButton text="Adicionar" onClick={() => handleAddEmissao()} />
         </Grid>
         <Grid xs={2}>
-          <CustomButton text="Remover" onClick={() => handleRemoveEmissao()} />
+          <CustomButton display={contadorEmissao.length == 0} text="Remover" onClick={() => handleRemoveEmissao()} />
         </Grid>
       </Grid>
       <Grid xs={6}>

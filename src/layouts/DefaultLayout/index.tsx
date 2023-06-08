@@ -11,7 +11,6 @@ export default function DefaultLayout({ children }: any) {
       <Navbar>
         <main className="main-container">{children}</main>
       </Navbar>
-      <Footer />
     </>
   );
 }
