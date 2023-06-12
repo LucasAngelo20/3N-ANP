@@ -36,7 +36,6 @@ const EmissaoR1Pax = () => {
   const [open, setOpen] = useState(false);
   const [Info, setInfo] = useState<Array<SessionProps>>([]);
 
-  const ref = useRef(null);
 
   const handleSaveInfos = () => {
     console.log("Informações salvas: ");
@@ -54,7 +53,6 @@ const EmissaoR1Pax = () => {
   const handleRemoveEmissao = () => {
     setvalues(values.slice(0, -1));
 
-    ref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleChange = (event: any, index: any) => {

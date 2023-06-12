@@ -68,6 +68,13 @@ const routes = [
       },
     ],
   },
+  {
+    name: "Cadastro origem/destino",
+    to: "/cadastro-origem-destino",
+    icon: <MenuIcons iconNumber={1} />,
+    collapsed: false,
+    
+  },
 ] as Array<RouteProps>;
 
 export default routes;
