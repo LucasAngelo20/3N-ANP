@@ -75,6 +75,27 @@ const routes = [
     collapsed: false,
     
   },
+  {
+    name: "Cadastro EAM",
+    to: "/cadastro-eam",
+    icon: <MenuIcons iconNumber={1} />,
+    collapsed: false,
+    
+  },
+  {
+    name: "Programacoes",
+    to: "/programacoes",
+    icon: <MenuIcons iconNumber={1} />,
+    collapsed: false,
+    
+  },
+  {
+    name: "Atendimento check-in",
+    to: "/atendimento-check-in",
+    icon: <MenuIcons iconNumber={1} />,
+    collapsed: false,
+    
+  },
 ] as Array<RouteProps>;
 
 export default routes;

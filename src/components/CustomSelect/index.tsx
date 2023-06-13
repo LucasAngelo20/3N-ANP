@@ -13,6 +13,7 @@ type CustomSelectProps = {
   data?: Array<DataProps>;
   value?: string;
   name?: string;
+  margin?: string;
   onChange?: (value: any) => void;
 };
 
@@ -24,10 +25,11 @@ const CustomSelect = ({
   onChange,
   data,
   value,
-  name
+  name,
+  margin
 }: CustomSelectProps) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", margin: 10 }}>
+    <div style={{ display: "flex", flexDirection: "column", margin:margin ? margin : 10 }}>
       <span style={{ fontSize: 14, fontWeight: 300, marginBottom: 5 }}>
         {label}
       </span>
